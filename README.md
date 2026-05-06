@@ -20,3 +20,62 @@ The system also supports video recording, gesture toggling, and multiple visuali
 ---
 
 ## Project Structure
+
+    hand-detection-app/
+    │
+    ├── backend/
+    │   ├── main.py           # FastAPI server
+    │   ├── detector.py       # Hand detection logic
+    │   ├── tracker.py        # Tracking logic (IDs)
+    │   ├── gesture.py        # Gesture recognition
+    │
+    ├── frontend/
+    │   └── index.html        # UI interface
+    │
+    ├── requirements.txt      # Dependencies
+    └── README.md             # Project documentation
+
+---
+
+## Quick Start
+
+### 1. Install Dependencies
+
+pip install -r requirements.txt
+
+### 2. Run Backend
+
+uvicorn backend.main:app --reload
+
+### 3. Open Frontend
+
+frontend/index.html
+
+---
+
+## Tech Stack
+
+- Backend: Python, FastAPI  
+- Computer Vision: OpenCV, MediaPipe  
+- Frontend: HTML, CSS, JavaScript  
+
+---
+
+## AI Tools Used
+
+- ChatGPT (for debugging, UI design, and development support)
+
+---
+
+## Challenges Faced
+
+- Dependency conflicts  
+- MediaPipe compatibility issues  
+- Streaming issues  
+- Tracking logic fixes  
+
+---
+
+## Conclusion
+
+This project demonstrates a complete real-time computer vision pipeline with an interactive UI.
