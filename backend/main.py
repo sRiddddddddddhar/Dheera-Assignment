@@ -22,7 +22,7 @@ gesture_detector = GestureRecognizer()
 camera = cv2.VideoCapture(0)
 prev_time = 0
 mode_state = "both"
-show_gesture_state = True
+show_gesture_state = False
 # Recording
 recording = False
 video_writer = None
