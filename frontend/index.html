@@ -1,9 +1,7 @@
 <!DOCTYPE html>
 <html>
-
 <head>
     <title>Hand Detection and Tracking System</title>
-
     <style>
         body {
             margin: 0;
@@ -11,24 +9,20 @@
             background: linear-gradient(135deg, #0f172a, #1e293b);
             color: white;
         }
-
         .container {
             display: flex;
             flex-direction: column;
             align-items: center;
             padding: 30px;
         }
-
         h1 {
             margin-bottom: 5px;
         }
-
         .subtitle {
             color: #94a3b8;
             font-size: 14px;
             margin-bottom: 20px;
         }
-
         .card {
             backdrop-filter: blur(15px);
             background: rgba(30, 41, 59, 0.7);
@@ -37,7 +31,6 @@
             width: 720px;
             box-shadow: 0 0 40px rgba(0,0,0,0.4);
         }
-
         .row {
             display: flex;
             justify-content: center;
@@ -45,7 +38,6 @@
             flex-wrap: wrap;
             margin-bottom: 15px;
         }
-
         select {
             padding: 10px;
             border-radius: 8px;
@@ -53,7 +45,6 @@
             background: #334155;
             color: white;
         }
-
         button {
             padding: 10px 16px;
             border-radius: 8px;
@@ -63,45 +54,36 @@
             cursor: pointer;
             transition: 0.3s;
         }
-
         button:hover {
             transform: scale(1.05);
         }
-
         .danger {
             background: linear-gradient(135deg, #ef4444, #dc2626);
         }
-
         .video {
             margin-top: 10px;
         }
-
         img {
             width: 100%;
             border-radius: 12px;
             border: 2px solid #334155;
         }
-
         .status {
             margin-top: 10px;
         }
-
         .timer {
             margin-top: 5px;
             color: #f87171;
         }
-
         .switch {
             position: relative;
             display: inline-block;
             width: 50px;
             height: 24px;
         }
-
         .switch input {
             display: none;
         }
-
         .slider {
             position: absolute;
             cursor: pointer;
@@ -113,7 +95,6 @@
             bottom: 0;
             transition: .3s;
         }
-
         .slider:before {
             position: absolute;
             content: "";
@@ -125,41 +106,31 @@
             border-radius: 50%;
             transition: .3s;
         }
-
         input:checked + .slider {
             background: #22c55e;
         }
-
         input:checked + .slider:before {
             transform: translateX(26px);
         }
-
     </style>
 </head>
-
 <body>
-
 <div class="container">
-
     <h1>Hand Detection and Tracking System</h1>
     <div class="subtitle">Real-Time Hand Tracking & Gesture Intelligence</div>
-
     <div class="card">
-
         <div class="row">
             <select id="mode">
                 <option value="both">Box + Skeleton (Full View)</option>
                 <option value="box">Bounding Box Only</option>
                 <option value="skeleton">Skeleton Only</option>
             </select>
-
             <label>Gesture</label>
             <label class="switch">
                 <input type="checkbox" id="gestureToggle">
                 <span class="slider"></span>
             </label>
         </div>
-
         <div class="row">
             <button onclick="start()">Start</button>
             <button class="danger" onclick="stop()">Stop</button>
@@ -168,31 +139,21 @@
             <button onclick="stopRecording()">Stop Rec</button>
             <button onclick="downloadVideo()">Download</button>
         </div>
-
         <div class="status" id="status"></div>
         <div class="timer" id="timer"></div>
-
         <div class="video">
             <img id="video">
         </div>
-
     </div>
-
 </div>
-
 <script>
-
 let running = false;
 let seconds = 0;
 let timerInterval = null;
-
 function start() {
     const video = document.getElementById("video");
-
     video.src = "http://127.0.0.1:8000/video";
     running = true;
-
-    // 🔥 SCROLL AFTER VIDEO LOADS
     video.onload = () => {
         window.scrollBy({
             top: 120,
@@ -200,16 +161,13 @@ function start() {
         });
     };
 }
-
 function stop() {
     document.getElementById("video").src = "";
     running = false;
 }
-
 function updateSettings() {
     const mode = document.getElementById("mode").value;
     const gesture = document.getElementById("gestureToggle").checked;
-
     fetch("http://127.0.0.1:8000/update_settings", {
         method: "POST",
         headers: {"Content-Type": "application/json"},
@@ -219,17 +177,12 @@ function updateSettings() {
         })
     });
 }
-
 document.getElementById("mode").addEventListener("change", updateSettings);
 document.getElementById("gestureToggle").addEventListener("change", updateSettings);
-
 function startRecording() {
     fetch("http://127.0.0.1:8000/start_recording");
-
     document.getElementById("status").innerText = "Recording...";
-
     seconds = 0;
-
     timerInterval = setInterval(() => {
         seconds++;
         let m = Math.floor(seconds/60);
@@ -238,18 +191,14 @@ function startRecording() {
             `${String(m).padStart(2,'0')}:${String(s).padStart(2,'0')}`;
     }, 1000);
 }
-
 function stopRecording() {
     fetch("http://127.0.0.1:8000/stop_recording");
     document.getElementById("status").innerText = "Recording stopped";
     clearInterval(timerInterval);
 }
-
 function downloadVideo() {
     window.open("http://127.0.0.1:8000/download");
 }
-
 </script>
-
 </body>
 </html>
