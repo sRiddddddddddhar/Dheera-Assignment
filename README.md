@@ -21,6 +21,24 @@ This system performs the following:
 
 ---
 
+## Project Structure
+
+hand-detection-app/
+│
+├── backend/
+│   ├── main.py              # FastAPI server
+│   ├── detector.py          # Hand detection logic
+│   ├── tracker.py           # Tracking logic (IDs)
+│   ├── gesture.py           # Gesture recognition
+│
+├── frontend/
+│   └── index.html           # UI interface
+│
+├── requirements.txt         # Dependencies
+└── README.md                # Project documentation
+
+---
+
 ## Quick Start
 
 ### 1. Install Dependencies
