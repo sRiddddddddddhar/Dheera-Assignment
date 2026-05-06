@@ -39,16 +39,27 @@ The system also supports video recording, gesture toggling, and multiple visuali
 
 ## Quick Start
 
-### 1. Install Dependencies
+##Step 1: Clone the Repository
+
+git clone
+cd hand-detection-app
+
+##Step 2: Create Virtual Environment
+
+python -m venv venv
+venv\Scripts\activate
+
+##Step 3: Install Dependencies
 
 pip install -r requirements.txt
 
-### 2. Run Backend
+##Step 4: Run Backend Server
 
-uvicorn backend.main:app --reload
+uvicorn backend.main --reload
 
-### 3. Open Frontend
+##Step 5: Open Frontend
 
+Open the file:
 frontend/index.html
 
 ---
@@ -69,11 +80,21 @@ frontend/index.html
 
 ## Challenges Faced
 
-- Dependency conflicts  
-- MediaPipe compatibility issues  
-- Streaming issues  
-- Tracking logic fixes  
-
+-Dependency conflicts
+    Issues with TensorFlow and protobuf versions
+    Resolved by managing compatible versions
+-MediaPipe compatibility
+    Some versions didn’t support Python 3.12 properly
+    Required environment adjustments
+-MJPEG stream issues
+    Stream freezing and flickering when updating UI
+    Fixed by implementing backend-controlled state instead of restarting stream
+-Tracking consistency
+    Hand IDs increasing incorrectly after re-entry
+    Solved with proper tracking logic reset
+-UI/UX problems
+    Layout issues and poor visibility of controls
+    Improved with structured and user-friendly design
 ---
 
 ## Conclusion
